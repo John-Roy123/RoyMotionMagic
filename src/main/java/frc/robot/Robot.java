@@ -58,6 +58,7 @@ public class Robot extends TimedRobot {
  
   @Override
   public void disabledInit() {
+    //Use this so if the sensor state is changed between enables, the robot won't try to return to sensor position and break itself
     m_Drive.disableMotionMagic();
   }
 

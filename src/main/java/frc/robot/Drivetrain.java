@@ -161,6 +161,42 @@ public class Drivetrain {
     }
 
 
+    public void driveBack(){
+      double targetPos = -10000;
+
+      double LeftmotorOutput = m_leftMotorOne.getMotorOutputPercent();
+
+      double RightmotorOutput = m_RightMotorFour.getMotorOutputPercent();
+
+    Lsb.append("\tOut%:");
+		Lsb.append(LeftmotorOutput);
+		Lsb.append("\tVel:");
+		Lsb.append(m_leftMotorOne.getSelectedSensorVelocity(0));
+
+    Rsb.append("\tOut%:");
+		Rsb.append(RightmotorOutput);
+		Rsb.append("\tVel:");
+		Rsb.append(m_RightMotorFour.getSelectedSensorVelocity(0));
+    m_leftMotorOne.set(TalonFXControlMode.MotionMagic, targetPos);
+
+    /* Append more signals to print when in speed mode */
+    Lsb.append("\terr:");
+    Lsb.append(m_leftMotorOne.getClosedLoopError(0));
+    Lsb.append("\ttrg:");
+    Lsb.append(targetPos);
+
+    m_RightMotorFour.set(TalonFXControlMode.MotionMagic, targetPos);
+
+    /* Append more signals to print when in speed mode */
+    Rsb.append("\terr:");
+    Rsb.append(m_leftMotorOne.getClosedLoopError(0));
+    Rsb.append("\ttrg:");
+    Rsb.append(targetPos);
+
+    m_leftMotorOne.configMotionSCurveStrength(_smoothing);
+    m_RightMotorFour.configMotionSCurveStrength(_smoothing);
+
+    }
 
     public void configMotionMagic(){
 
