@@ -6,7 +6,7 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.XboxController;
-import frc.robot.Mechanisms.Drivetrain;
+import frc.robot.Drivetrain;
 
 
 
@@ -58,6 +58,7 @@ public class Robot extends TimedRobot {
  
   @Override
   public void disabledInit() {
+    m_Drive.disableMotionMagic();
   }
 
 

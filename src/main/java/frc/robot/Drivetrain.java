@@ -1,4 +1,4 @@
-package frc.robot.Mechanisms;
+package frc.robot;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
@@ -14,7 +14,7 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.Systems.Instrum;
+import frc.robot.Instrum;
 
 
 public class Drivetrain {
@@ -46,7 +46,7 @@ public class Drivetrain {
     double p = 0.2;
     double i = 0;
     double d = 0;
-    double f = 0.2;
+    double f = 0.0682;
     double izone = 0;
     double peak = 1;
     int timeout = 30;
@@ -207,14 +207,19 @@ public class Drivetrain {
     m_RightMotorFour.config_kI(0, i, timeout);
     m_RightMotorFour.config_kD(0, d, timeout);
 
-    m_leftMotorOne.configMotionCruiseVelocity(6000, timeout);
-    m_leftMotorOne.configMotionAcceleration(2000, timeout);
+    m_leftMotorOne.configMotionCruiseVelocity(15000, timeout);
+    m_leftMotorOne.configMotionAcceleration(6000, timeout);
 
-    m_RightMotorFour.configMotionCruiseVelocity(6000, timeout);
-    m_RightMotorFour.configMotionAcceleration(2000, timeout);
+    m_RightMotorFour.configMotionCruiseVelocity(15000, timeout);
+    m_RightMotorFour.configMotionAcceleration(6000, timeout);
 
     m_leftMotorOne.setSelectedSensorPosition(0, 0, timeout);
     m_RightMotorFour.setSelectedSensorPosition(0, 0, timeout);
+    }
+
+    public void disableMotionMagic(){
+      m_leftMotorOne.set(ControlMode.PercentOutput, 0);
+      m_RightMotorFour.set(ControlMode.PercentOutput, 0);
     }
 
 }
