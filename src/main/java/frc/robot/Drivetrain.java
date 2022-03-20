@@ -65,8 +65,9 @@ public class Drivetrain {
       left = new MotorControllerGroup(m_leftMotorThree, m_leftMotorOne, m_leftMotorTwo);
       drive = new DifferentialDrive(right, left);
 
-
+      //Resets config on falcons then sets them to necessary values
       configMotionMagic();
+
       m_leftMotorTwo.follow(m_leftMotorOne);
       m_leftMotorThree.follow(m_leftMotorThree);
       m_RightMotorFive.follow(m_RightMotorFour);
@@ -161,6 +162,8 @@ public class Drivetrain {
     }
 
 
+ //Test for auto - should drive both left and right side backwards
+
     public void driveBack(){
       double targetPos = -10000;
 
@@ -168,6 +171,7 @@ public class Drivetrain {
 
       double RightmotorOutput = m_RightMotorFour.getMotorOutputPercent();
 
+    //Grabs percent output (-1 to +1) of motor controller and then the actual encoder velocity
     Lsb.append("\tOut%:");
 		Lsb.append(LeftmotorOutput);
 		Lsb.append("\tVel:");
@@ -179,6 +183,8 @@ public class Drivetrain {
 		Rsb.append(m_RightMotorFour.getSelectedSensorVelocity(0));
     m_leftMotorOne.set(TalonFXControlMode.MotionMagic, targetPos);
 
+
+    //Grabs error to be used to calculate P value in PIDF loop and then sets 
     /* Append more signals to print when in speed mode */
     Lsb.append("\terr:");
     Lsb.append(m_leftMotorOne.getClosedLoopError(0));
@@ -198,11 +204,16 @@ public class Drivetrain {
 
     }
 
+
+
+
+
     public void configMotionMagic(){
 
     m_leftMotorOne.configFactoryDefault();
     m_RightMotorFour.configFactoryDefault();
 
+    //Makes sure sensor reading values is the falcon500 integrated sensor
     m_leftMotorOne.configSelectedFeedbackSensor(TalonFXFeedbackDevice.IntegratedSensor, 0, timeout);
     m_RightMotorFour.configSelectedFeedbackSensor(TalonFXFeedbackDevice.IntegratedSensor, 0, timeout);
 
